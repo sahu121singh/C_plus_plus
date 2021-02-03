@@ -1,32 +1,88 @@
 #include<bits/stdc++.h>
 using namespace std;
-int memo[1001][1001];
-
-int fun(int val[], int w[], int n, int wt){
-    if(n==0 || wt == 0){
-        return 0;
-    }
-    if(memo[n][wt] != 0){
-        return memo[n][wt];
-    }
-    if(w[n-1] <= wt){
-        memo[n][wt] = max(val[n-1] + fun(val, w, n-1, wt-w[n-1]), fun(val, w, n-1, wt));
-    }
-    else{
-        memo[n][wt] = fun(val, w, n-1, wt);
-    }
-    return memo[n][wt];
-}
+//int *fun(int *arr, int n);
+void fun(int *arr, int n);
 
 int main(){
-    int w[4] = {2, 3, 4, 5};
-    int val[4] = {1, 2, 5, 6};
-    memset(memo, 0, sizeof(memo));
-    cout<<fun(val, w, 4, 8)<<endl<<endl;
-    for(int i = 0; i <= 4; i++){
-        for(int j = 0; j <= 8; j++){
-            cout<<memo[i][j]<<" ";
-        }
-        cout<<endl;
+    int arr[] = {3, 2, 5, 6, 7, 1, 7, 4, 3, 6, 6, 8};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    
+    // sort(arr, arr+n);
+    // int *p;
+    // p = fun(arr, n);
+    
+    fun(arr, n);
+    cout<<endl;
+    for(int i = 0; i < n; i++){
+        //cout<<*(p+i)<<" ";
+        cout<<arr[i]<<" ";
     }
 }
+
+
+
+
+/* Insertion_Sort
+void fun(int *arr, int n){
+    
+    // for(int i = 1; i< n; i++){
+    //     int hole = i;
+    //     while(hole > 0 && arr[hole] < arr[hole-1]){
+    //         swap(arr[hole], arr[hole-1]);
+    //         hole-=1;
+    //     }
+    // }
+    
+    for(int i = 1; i < n; i++){
+        int curr = arr[i];
+        int hole = i;
+        while(hole > 0 && arr[hole-1] > curr){
+            arr[hole] = arr[hole-1];
+            hole-=1;
+        }
+        arr[hole] = curr;
+    }
+    
+    for(int i = 0; i < n; i++){
+        cout<<arr[i]<<" ";
+    }
+}
+*/
+
+/* Selection_Sort
+int min_index(int *arr, int n, int pos){
+    int min = pos;
+    for(int i = pos+1; i < n; i++){
+        if(arr[min] > arr[i]){
+            min = i;
+        }
+    }
+    return min;
+}
+void fun(int *arr, int n){
+    for(int i = 0; i < n; i++){
+        int idx = index(arr, n, i);
+        if(idx != i){
+            swap(arr[i], arr[idx]);
+        }
+    }
+}
+*/
+
+
+/* bubble_sort
+int fun(int *arr, int n){
+    for(int i = 0; i < n; i++){
+        for(int j = i; j < n; j++){
+            if(arr[i] > arr[j]){
+                swap(arr[i], arr[j]);
+            }
+        }
+    }
+    
+    
+    for(int i = 0; i < n; i++){
+        cout<<arr[i]<<" ";
+    }
+    return;
+}*/
